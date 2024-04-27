@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tap Problem</title>
+    <link rel="stylesheet" href="tap.css">
+</head>
+<body>
+    <div class="container">
+        <!-- water container -->
+        <div id="tank">
+            <!-- water -->
+            <div id="water"></div>
+        </div> 
+
+        <div id="pipe">
+            <div id="rectangle"></div>
+            <div id="square"></div>
+            <!-- On/off -->
+            <button id="tap" onclick="openTap()"></button>
+            <div id="waterFlow"></div>
+        </div>
+    </div>
+
+    <script>
+        var h2o=document.getElementById("water")
+        var tapButton=document.getElementById("tap")
+        var flowing=document.getElementById("waterFlow")
+
+        var level=400;   
+        var space=0;
+        flowing.style.display="none";
+
+        var tapStatus="OFF"
+        var flow="ON"
+
+        function openTap(){
+            if(tapStatus=="OFF"){
+                tapButton.style.backgroundColor="green"
+                tapStatus="ON"
+                h2o.style.borderTopLeftRadius="0px"
+                h2o.style.borderTopRightRadius="0px"
+
+                if(level>0){
+                    flowing.style.display="block"
+                    var intervalId=setInterval(function(){
+                        level=level-1
+                        space=space+1
+                        h2o.style.height=level+"px"
+                        h2o.style.marginTop=space+"px"
+
+
+                        if(level==0 || space==400 || flow=="OFF"){
+                        clearInterval(intervalId);
+                        flowing.style.display="none"
+                        flow="ON"
+                    }
+                    },50);
+                }
+
+            }
+            else if(tapStatus=="ON"){
+        
+                flow="OFF"
+                tapStatus="OFF"
+                tapButton.style.backgroundColor="red"
+                flowing.style.display="none"
+            }
+        }
+    </script>
+
+
+</body>
+</html>
